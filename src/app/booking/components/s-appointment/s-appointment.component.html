@@ -1,0 +1,16 @@
+<div *ngIf="appointment">
+    <table>
+        <tr>
+            <td>Termin wizyty:</td>
+            <td>{{ appointment.date.date }}</td>
+        </tr>
+        <tr>
+            <td>Expert</td>
+            <td>{{ appointment.expertName }}</td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>{{ appointment.status }}</td>
+        </tr>
+    </table>
+</div>

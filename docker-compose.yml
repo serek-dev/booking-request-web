@@ -1,0 +1,38 @@
+version: "3.4"
+services:
+  client_tests_unit:
+    container_name: client_tests_unit
+    build:
+      context: .
+      target: tests_unit
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+
+  client_dev:
+    container_name: client_dev
+    build:
+      context: .
+      target: dev
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: test
+    volumes:
+      - .:/app
+    ports:
+      - "4200:4200"
+
+  client_build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build
+    container_name: client
+
+  start_dependencies:
+    image: dadarek/wait-for-dependencies
+    environment:
+      SLEEP_LENGTH: 10
+    depends_on:
+      - client_dev
+    command: client_dev:4200

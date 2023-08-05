@@ -1,0 +1,138 @@
+<p-card [ngStyle]="{backgroundColor:'var(--gray-200)'}">
+    <form action="#" (ngSubmit)="submit(f)" #f="ngForm">
+
+        <h3>Dane pacjenta:</h3>
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-6">
+
+                <div class="field">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                        <input
+                                id="firstName"
+                                name="firstName"
+                                pInputText
+                                [(ngModel)]="form.firstName"
+                                #firstName="ngModel"
+                                required
+                                minlength="3"
+                                maxlength="25"
+                                (keyup.enter)="submit(f)"
+                                type="text" pInputText placeholder="Imię"/>
+                    </div>
+                </div>
+
+                <small *ngIf="firstName.dirty && firstName.errors" class="p-error block">
+                    <ul>
+                        <li *ngIf="firstName.errors['required']">Pole imię jest wymagane</li>
+                        <li *ngIf="firstName.errors['minlength']">Imię jest za krótkie</li>
+                    </ul>
+                </small>
+            </div>
+
+            <div class="col-12 md:col-6">
+
+                <div class="field">
+                    <div class="p-inputgroup">
+                        <input
+                                id="lastName"
+                                name="lastName"
+                                pInputText
+                                [(ngModel)]="form.lastName"
+                                #lastName="ngModel"
+                                required
+                                minlength="3"
+                                maxlength="25"
+                                (keyup.enter)="submit(f)"
+                                type="text" pInputText placeholder="Nazwisko">
+                    </div>
+                </div>
+
+                <small *ngIf="lastName.dirty && lastName.errors" class="p-error block">
+                    <ul>
+                        <li *ngIf="lastName.errors['required']">Pole nazwisko jest wymagane</li>
+                        <li *ngIf="lastName.errors['minlength']">Nazwisko jest za krótkie</li>
+                    </ul>
+                </small>
+
+            </div>
+        </div>
+
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-6">
+                <div class="field">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span>
+                        <input
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                pInputText [(ngModel)]="form.phoneNumber"
+                                #phoneNumber="ngModel"
+                                required
+                                min="500000000"
+                                max="99999999999"
+                                (keyup.enter)="submit(f)"
+                                type="number" pInputText placeholder="Numer telefonu np: 500100200">
+                    </div>
+                </div>
+
+                <small *ngIf="phoneNumber.dirty && phoneNumber.errors" class="p-error block">
+                    <ul>
+                        <li *ngIf="phoneNumber.errors['min'] || phoneNumber.errors['max']">
+                            Nieprawidłowy numer telefonu. Użyj formatu: 500100200 lub 0048500100200 w przypadku zagranicznych numerów.
+                        </li>
+                    </ul>
+                </small>
+            </div>
+
+            <div class="col-12 md:col-6">
+                <div class="field">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-bell"></i></span>
+                        <input
+                                id="email"
+                                name="email"
+                                pInputText
+                                [(ngModel)]="form.email"
+                                #email="ngModel"
+                                required
+                                email
+                                (keyup.enter)="submit(f)"
+                                type="text" pInputText placeholder="Adres e-mail">
+                    </div>
+                </div>
+
+                <small *ngIf="email.dirty && email.errors" class="p-error block">
+                    <ul>
+                        <li *ngIf="email.errors['required']">Pole e-mail jest wymagane</li>
+                        <li *ngIf="email.errors['email']">Nieprawidłowy adres e-mail</li>
+                    </ul>
+                </small>
+            </div>
+        </div>
+    </form>
+
+    <ng-template pTemplate="footer">
+        <div class="p-buttonset">
+            <p-button (click)="submit(f)"
+                      [label]="'Potwierdź wizytę u: ' + selectedExpert.name + ', dnia: ' + selectedDate.period.from.date"
+                      icon="pi pi-check"
+                      [disabled]="f.invalid"
+                      iconPos="left">
+            </p-button>
+
+            <p-confirmPopup></p-confirmPopup>
+
+            <button pButton
+                    id="clear"
+                    type="button"
+                    class="p-button-outlined p-button-danger"
+                    label="Wyczyść"
+                    icon="pi pi-trash"
+                    [disabled]="!f.dirty"
+                    (click)="clear($event)"></button>
+        </div>
+
+    </ng-template>
+</p-card>
+

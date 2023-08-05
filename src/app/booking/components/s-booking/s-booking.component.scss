@@ -1,0 +1,19 @@
+:host ::ng-deep {
+  .p-orderlist {
+    &-list {
+      min-height: 3rem !important;
+    }
+
+    &-controls {
+      display: none !important;
+    }
+
+    &-item {
+      font-size: 1.25rem;
+    }
+  }
+
+  .p-inline-message-info {
+    width: 100%;
+  }
+}
